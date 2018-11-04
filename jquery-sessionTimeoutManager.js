@@ -28,33 +28,21 @@ var opts;
 
 		this.initialize = function () {
 			console.info("Plugin Initialised");
-			console.info( "'" + opts.confirmColor + "'");
+			console.info("'" + opts.confirmColor + "'");
 			console.log(opts.redirectToURL);
 			timeoutInterval = Math.floor(opts.sessionActualTimeout - opts.warnUserBeforeDuration);
 			thisInterval = Math.floor(timeoutInterval / 1000 / 60) + "Minute(s)";
 
 			console.log("opts.elementToHook: " + opts.elementToHook);
 			if (opts.elementToHook === document) {
-				document.addEventListener("mousemove", this.resetTimer);
+				document.addEventListener("mousemove", this.resetTimer());
 			} else {
-				document.getElementById(opts.elementToHook).addEventListener("mousemove", this.resetTimer);
+				document.getElementById(opts.elementToHook).addEventListener("mousemove", this.resetTimer());
 			}
 
 			this.startTimer();
 
 			return this;
-		};
-
-		this.stopTimer = function () {
-
-			clearTimeout(tmrSTM);
-			console.log("Timeout Stopped");
-		};
-
-		this.resetTimer = function () {
-			clearTimeout(tmrSTM);
-			this.startTimer();
-			console.log("Timeout Reset");
 		};
 
 		this.startTimer = function () {
@@ -84,13 +72,26 @@ var opts;
 						}
 					});
 
-				}else{
+				} else {
 					document.location.href = opts.redirectToURL;
 				}
 
 			}, timeoutInterval);
 			//console.log("Timer Started");
 		};
+
+		this.stopTimer = function () {
+
+			clearTimeout(tmrSTM);
+			console.log("Timeout Stopped");
+		};
+
+		this.resetTimer = function () {
+			clearTimeout(tmrSTM);
+			this.startTimer();
+			console.log("Timeout Reset");
+		};
+
 
 		return this.initialize();
 	};
@@ -111,7 +112,7 @@ var opts;
 		cancelButtonText: '<i class="fas fa-times-circle"></i>&nbsp;Log Out',
 		confirmAction: function () {
 
-			this.resetTimer;
+			this.resetTimer();
 
 		},
 		cancelAction: function () {
