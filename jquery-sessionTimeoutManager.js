@@ -51,7 +51,7 @@ var opts;
 			console.log("Timeout Stopped");
 		};
 
-		this.resetTImer = function () {
+		this.resetTimer = function () {
 			clearTimeout(tmrSTM);
 			this.startTimer();
 			console.log("Timeout Reset");
